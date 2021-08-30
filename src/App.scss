@@ -51,6 +51,7 @@ header {
     border: 1px solid #f3f3f3;
     border-radius: 10px;
     padding: 0 15px;
+    position: relative;
     input {
         border: 0;
         padding: 13px;
@@ -60,6 +61,14 @@ header {
             color: #C4C4C4;
             ;
         }
+    }
+
+    .clear {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 10px;
+
     }
 }
 
@@ -88,6 +97,7 @@ header {
         margin: 0;
         font-size: 24px;
     }
+
 }
 
 .cartItem {
@@ -119,12 +129,13 @@ header {
         }
     }
 }
-
-.cartTotalBlock {
-    .items {
+.items {
         overflow: auto;
         margin-bottom: 40px;
-    }
+}
+
+.cartTotalBlock {
+    
     ul {
         margin-bottom: 40px !important;
         div {
