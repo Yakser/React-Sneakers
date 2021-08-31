@@ -36,8 +36,6 @@ header {
     }
 }
 
-
-
 .button {
     background: #fff;
     border: 1px solid #f2f2f2;
@@ -62,13 +60,11 @@ header {
             ;
         }
     }
-
     .clear {
         position: absolute;
         width: 18px;
         height: 18px;
         right: 10px;
-
     }
 }
 
@@ -85,6 +81,7 @@ header {
 .drawer {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     width: 420px;
     height: 100%;
@@ -97,7 +94,20 @@ header {
         margin: 0;
         font-size: 24px;
     }
-
+    .cartContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: auto;
+        flex: 1;
+        .items {
+            flex-grow: 1;
+            flex-shrink: 0;
+            height: 100%;
+            overflow: auto;
+            margin-bottom: 40px;
+        }
+    }
 }
 
 .cartItem {
@@ -129,13 +139,36 @@ header {
         }
     }
 }
-.items {
-        overflow: auto;
-        margin-bottom: 40px;
+
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h3 {
+        text-align: center;
+        font-size: 22px;
+        line-height: 27px;
+    }
+    p {
+        text-align: center;
+        font-size: 16px;
+        opacity: .4;
+        line-height: 24px;
+    }
+    .greenButton {
+        img {
+            left: 40px;
+        }
+        &:hover {
+            img {
+                transform: translateX(-5px);
+            }
+        }
+    }
 }
 
 .cartTotalBlock {
-    
     ul {
         margin-bottom: 40px !important;
         div {
@@ -151,12 +184,8 @@ header {
         }
     }
     .greenButton {
-        position: relative;
         img {
-            position: absolute;
             right: 40px;
-            top: 20px;
-            transition: transform .15s ease-in-out;
         }
         &:hover {
             img {
@@ -177,6 +206,12 @@ header {
     color: #fff;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
+    position: relative;
+    img {
+        position: absolute;
+        top: 20px;
+        transition: transform .15s ease-in-out;
+    }
     &:hover {
         background: lighten($color: #9DD558, $amount: 5%)
     }

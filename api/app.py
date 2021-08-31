@@ -4,9 +4,11 @@ from werkzeug.security import generate_password_hash
 from requests import post
 import sneakers_resource
 import cart_resource
+import favorite_resource
 from data import db_session
 from data.sneakers import Sneakers
 from data.cart import Cart
+from data.favorite import Favorite
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,10 +22,12 @@ db_session.global_init("db/database.db")
 # добавление REST-API
 api.add_resource(sneakers_resource.SneakersListResource, '/api/sneakers')
 api.add_resource(sneakers_resource.SneakersResource, '/api/sneakers/<int:sneakers_id>')
-api.add_resource(cart_resource.CartListResource, '/api/cart')
-api.add_resource(cart_resource.CartResource,
-                 '/api/cart/<int:cart_id>')
 
+api.add_resource(cart_resource.CartListResource, '/api/cart')
+api.add_resource(cart_resource.CartResource, '/api/cart/<int:cart_id>')
+
+api.add_resource(favorite_resource.FavoriteListResource, '/api/favorite')
+api.add_resource(favorite_resource.FavoriteResource, '/api/favorite/<int:favorite_id>')
 
 @app.route(BASE_URL + '/postCart')
 def post_cart():

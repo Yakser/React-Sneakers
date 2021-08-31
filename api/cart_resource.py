@@ -12,7 +12,9 @@ class CartResource(Resource):
         abort_if_cart_not_found(cart_id)
 
         session = db_session.create_session()
-        cart = session.query(Cart).get(cart_id)
+        # cart = session.query(Cart).get(cart_id)
+        cart = session.query(Cart).filter(Cart.item_id == cart_id).all()[0]
+        
         return jsonify({'cart': cart.to_dict(
             only=('id', 'item_id'))})
 
@@ -32,7 +34,7 @@ class CartResource(Resource):
     def delete(self, cart_id):
         abort_if_cart_not_found(cart_id)
         session = db_session.create_session()
-        cart = session.query(Cart).get(cart_id)
+        cart = session.query(Cart).filter(Cart.item_id == cart_id).all()[0]
         session.delete(cart)
         session.commit()
         return jsonify({'success': 'OK'})
@@ -66,11 +68,10 @@ class CartListResource(Resource):
         try:
             args = parser.parse_args()
             session = db_session.create_session()
-           
+            
             cart = Cart(
                item_id=args['item_id']
             )
-            
             session.add(cart)
             session.commit()
             return jsonify({'success': 'OK', 'cart_id': cart.id})
@@ -81,6 +82,9 @@ class CartListResource(Resource):
 def abort_if_cart_not_found(cart_id):
    
     session = db_session.create_session()
-    cart = session.query(Cart).get(cart_id)
-    if not cart:
-        abort(404, message=f"Cart {cart_id} not found")
+    cart = None
+    try:
+        cart = session.query(Cart).filter(Cart.item_id == cart_id).all()[0]
+    except:
+        if not cart:
+            abort(404, message=f"Cart {cart_id} not found")
